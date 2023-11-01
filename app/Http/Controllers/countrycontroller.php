@@ -10,8 +10,7 @@ use Illuminate\Support\Facades\DB;
 class countrycontroller extends Controller
 {
     public function index(){
-        return view('countrys.index',
-        ['cruds'=> Crud::get()]);
+        return view('countrys.index',['cruds'=> Crud::get()]);
     }
 
     

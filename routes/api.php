@@ -3,6 +3,7 @@
 use App\Http\Controllers\countrycontroller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\API\UserContoller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +19,14 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('countrys',[countrycontroller::class,'index']);
+
+Route::controller(UserContoller::class)->group(function(){
+    Route::post('login','loginUser');
+});
+
+Route::controller(UserContoller::class)->group(function(){
+
+    Route::get('user','getUserDetail');
+    Route::get('logout','userLogout');
+
+})->middleware('auth:api');

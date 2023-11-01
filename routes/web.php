@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\countrycontroller;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -12,6 +13,7 @@ use App\Http\Controllers\countrycontroller;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
 
 Route::get('/',[countrycontroller::class,'index'])->name('countrys.index');
 
