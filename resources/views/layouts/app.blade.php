@@ -11,13 +11,16 @@
     <title>Country crud</title>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm bg-dark">
+    <nav class="navbar bg-dark">
         <!-- Links -->
         <ul class="navbar-nav">
           <li class="nav-item">
             <a class="nav-link text-light" href="/">Countrys</a>
           </li>
         </ul>
+        {{-- <div class="text-right">
+          <a href="countrys/user" class="btn btn-light mt-2">New User</a>
+      </div> --}}
       </nav>
 
       @if ($message = Session::get('success'))

@@ -14,6 +14,13 @@ class countrycontroller extends Controller
         ['cruds'=> Crud::get()]);
     }
 
+    public function user(){
+        return view('countrys.user');
+    }
+    
+    public function newuser(){
+        return view('countrys.newuser');
+    }
     
     public function create(){
         return view('countrys.create');

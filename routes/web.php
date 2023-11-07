@@ -15,6 +15,10 @@ use App\Http\Controllers\countrycontroller;
 
 Route::get('/',[countrycontroller::class,'index'])->name('countrys.index');
 
+Route::get('countrys/user',[countrycontroller::class,'user']);
+
+Route::get('countrys/countrys/newuser',[countrycontroller::class,'newuser']);
+
 Route::get('countrys/create',[countrycontroller::class,'create'])->name('countrys.create');
 
 Route::post('countrys/store',[countrycontroller::class,'store'])->name('countrys.store');
