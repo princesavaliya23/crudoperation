@@ -1,8 +1,9 @@
 <?php
 
-use App\Http\Controllers\countrycontroller;
+use App\Http\Controllers\ApicrudController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\countrycontroller;
 /*
 |--------------------------------------------------------------------------
 | API Routes
@@ -18,4 +19,9 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::get('countrys',[countrycontroller::class,'index']);
+Route::get('cruds',[ApicrudController::class,'index']);
+Route::post('cruds',[ApicrudController::class,'store']);
+Route::get('cruds/{crud}',[ApicrudController::class, 'show']);
+// Route::get('countrys/{id}/edit',[usercontoller::class, 'edit']);
+Route::put('cruds/{crud}',[ApicrudController::class, 'update']);
+Route::delete('cruds/{crud}',[ApicrudController::class, 'destroy']);
