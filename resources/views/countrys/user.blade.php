@@ -18,7 +18,7 @@
         <a href="" class="btn btn-dark mt-2">add User</a>
     </div> --}}
     <div class="w-24 text-left">
-        <a href="{{route ('countrys.index') }}" class="btn btn-dark btn-sm">Back</a>
+        <a href="{{route ('countrys.showcountry') }}" class="btn btn-dark btn-sm">Back</a>
     </div>
 </nav>
 <div class="container">
