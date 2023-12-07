@@ -3,6 +3,7 @@
 use App\Http\Controllers\ApicrudController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\Api\ApiController;
 use App\Http\Controllers\countrycontroller;
 /*
 |--------------------------------------------------------------------------
@@ -25,3 +26,17 @@ Route::get('cruds/{crud}',[ApicrudController::class, 'show']);
 // Route::get('countrys/{id}/edit',[usercontoller::class, 'edit']);
 Route::put('cruds/{crud}',[ApicrudController::class, 'update']);
 Route::delete('cruds/{crud}',[ApicrudController::class, 'destroy']);
+
+
+
+Route::post("register", [ApiController::class, "register"]);
+Route::post("login", [ApiController::class, "login"]);
+
+Route::group([
+    "middleware" => ["auth:api"]
+], function(){
+
+    Route::get("profile", [ApiController::class, "profile"]);
+    Route::get("logout", [ApiController::class, "logout"]);
+});
+
