@@ -10,7 +10,7 @@
                 <p>country : <b>{{ $crud->country}}</b></p>
                 <p>code : <b>{{ $crud->code }}</b> </p>
                 <div class="w-24">
-                    <a href="{{route ('countrys.index') }}" class="btn btn-dark btn-sm">Back</a>
+                    <a href="{{route ('countrys.showcountry') }}" class="btn btn-dark btn-sm">Back</a>
                 </div>
             </div>
         </div>

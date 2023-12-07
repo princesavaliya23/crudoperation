@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('cruds', function (Blueprint $table) {
+        Schema::create('apicruds', function (Blueprint $table) {
             $table->id();
             $table->string('country')->unique()->nullable();
             $table->string('code');
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('cruds');
+        Schema::dropIfExists('apicruds');
     }
 };

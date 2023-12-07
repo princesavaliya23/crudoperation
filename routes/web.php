@@ -13,7 +13,7 @@ use App\Http\Controllers\countrycontroller;
 |
 */
 
-Route::get('/',[countrycontroller::class,'index'])->name('countrys.index');
+Route::get('/',[countrycontroller::class,'showcountry'])->name('countrys.showcountry');
 
 Route::get('countrys/user',[countrycontroller::class,'user']);
 

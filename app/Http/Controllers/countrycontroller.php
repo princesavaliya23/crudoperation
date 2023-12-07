@@ -9,8 +9,8 @@ use Illuminate\Support\Facades\DB;
 
 class countrycontroller extends Controller
 {
-    public function index(){
-        return view('countrys.index',
+    public function showcountry(){
+        return view('countrys.showcountry',
         ['cruds'=> Crud::get()]);
     }
 
@@ -43,7 +43,7 @@ class countrycontroller extends Controller
 
         // return back()->withsuccess('product created !!!!!!');
         if($crud){
-            return redirect()->route('countrys.index');
+            return redirect()->route('countrys.showcountry');
         }else{
             echo "<h1>Data Not added.<h1/>";
         }
@@ -74,7 +74,7 @@ class countrycontroller extends Controller
 
         // return back('countrys.index')->withsuccess('product updated !!!!!!');
         if($crud){
-            return redirect()->route('countrys.index');
+            return redirect()->route('countrys.showcountry');
         }else{
             echo "<h1>Data Not Updated.<h1/>";
         }
@@ -86,7 +86,7 @@ class countrycontroller extends Controller
         // return back()->withSuccess('product deleted !!!!');
 
         if($crud){
-            return redirect()->route('countrys.index');
+            return redirect()->route('countrys.showcountry');
         }else{
             echo "<h1>Data Not deleted.<h1/>";
         }
@@ -97,4 +97,5 @@ class countrycontroller extends Controller
         
         return view('countrys.show',['crud'=>$crud]);
     }
+
 }
