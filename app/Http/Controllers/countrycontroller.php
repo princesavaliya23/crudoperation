@@ -2,100 +2,91 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use App\Models\Crud;
-use Illuminate\Support\Facades\DB;
+use App\Models\Country;
+use App\Http\Requests\StoreCountryRequest;
+use App\Http\Requests\UpdateCountryRequest;
+use Illuminate\View\View;
+use Illuminate\Http\RedirectResponse;
 
-
-class countrycontroller extends Controller
+class CountryController extends Controller
 {
-    public function showcountry(){
-        return view('countrys.showcountry',
-        ['cruds'=> Crud::get()]);
+    /**
+     * Instantiate a new ProductController instance.
+     */
+    public function __construct()
+    {
+       $this->middleware('auth');
+       $this->middleware('permission:create-countrie|edit-countrie|delete-countrie', ['only' => ['index','show']]);
+       $this->middleware('permission:create-countrie', ['only' => ['create','store']]);
+       $this->middleware('permission:edit-countrie', ['only' => ['edit','update']]);
+       $this->middleware('permission:delete-countrie', ['only' => ['destroy']]);
     }
 
-    public function user(){
-        return view('countrys.user');
-    }
-    
-    public function newuser(){
-        return view('countrys.newuser');
-    }
-    
-    public function create(){
-        return view('countrys.create');
-    }
-    public function store(Request $request){
-
-        //validate data
-        $request->validate([
-            'name' => 'required',
-            'code' => 'required'
+    /**
+     * Display a listing of the resource.
+     */
+    public function index(): View
+    {
+        return view('countries.index', [
+            'countries' => Country::latest()->paginate(3)
         ]);
-
-
-        // dd($request->all());
-        $crud = new Crud; 
-        $crud->country = $request->name;
-        $crud->code = $request->code;
-
-        $crud->save();
-
-        // return back()->withsuccess('product created !!!!!!');
-        if($crud){
-            return redirect()->route('countrys.showcountry');
-        }else{
-            echo "<h1>Data Not added.<h1/>";
-        }
-
     }
 
-    public function edit($id){
-        $crud = Crud::where('id',$id)->first();
-        
-        return view('countrys.edit',['crud' => $crud]);
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create(): View
+    {
+        return view('countries.create');
     }
 
-    public function update(Request $request, $id){
-        //validate data
-        $request->validate([
-            'name' => 'required',
-            'code' => 'required'
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(StoreCountryRequest $request): RedirectResponse
+    {
+        Country::create($request->all());
+        return redirect()->route('countries.index')
+                ->withSuccess('New data is added successfully.');
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(Country $countrie): View
+    {
+        return view('countries.show', [
+            'countrie' => $countrie
         ]);
-
-        $crud = Crud::where('id',$id)->first();
-
-        // dd($request->all());
-        // $crud = new Crud; 
-        $crud->country = $request->name;
-        $crud->code = $request->code;
-
-        $crud->save();
-
-        // return back('countrys.index')->withsuccess('product updated !!!!!!');
-        if($crud){
-            return redirect()->route('countrys.showcountry');
-        }else{
-            echo "<h1>Data Not Updated.<h1/>";
-        }
     }
 
-    public function destroy($id){
-        $crud = crud::where('id', $id)->first();
-        $crud->delete();
-        // return back()->withSuccess('product deleted !!!!');
-
-        if($crud){
-            return redirect()->route('countrys.showcountry');
-        }else{
-            echo "<h1>Data Not deleted.<h1/>";
-        }
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(Country $countrie): View
+    {
+        return view('countries.edit', [
+            'countrie' => $countrie
+        ]);
     }
 
-    public function show($id){
-        $crud = crud::where('id', $id)->first();
-        
-        return view('countrys.show',['crud'=>$crud]);
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(UpdateCountryRequest $request, Country $countrie): RedirectResponse
+    {
+        $countrie->update($request->all());
+        return redirect()->back()
+                ->withSuccess('Country is updated successfully.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(Country $countrie): RedirectResponse
+    {
+        $countrie->delete();
+        return redirect()->route('countries.index')
+                ->withSuccess('Country is deleted successfully.');
+    }
 }
