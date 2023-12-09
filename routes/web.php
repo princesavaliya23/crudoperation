@@ -1,7 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\countrycontroller;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\RoleController;
+use App\Http\Controllers\UserController;
+use App\Http\Controllers\ProductController;
+use Illuminate\Support\Facades\Auth;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -13,20 +19,16 @@ use App\Http\Controllers\countrycontroller;
 |
 */
 
-Route::get('/',[countrycontroller::class,'showcountry'])->name('countrys.showcountry');
+Route::get('/', function () {
+    return view('welcome');
+});
 
-Route::get('countrys/user',[countrycontroller::class,'user']);
+Auth::routes();
 
-Route::get('countrys/countrys/newuser',[countrycontroller::class,'newuser']);
+Route::get('/home', [HomeController::class, 'index'])->name('home');
 
-Route::get('countrys/create',[countrycontroller::class,'create'])->name('countrys.create');
-
-Route::post('countrys/store',[countrycontroller::class,'store'])->name('countrys.store');
-
-Route::get('countrys/{id}/edit',[countrycontroller::class,'edit']);
-
-Route::put('countrys/{id}/update',[countrycontroller::class,'Update']);
-
-Route::delete('countrys/{id}/delete',[countrycontroller::class,'destroy']);
-
-Route::get('countrys/{id}/show',[countrycontroller::class,'show']);
+Route::resources([
+    'roles' => RoleController::class,
+    'users' => UserController::class,
+    'countries' => countrycontroller::class,
+]);
